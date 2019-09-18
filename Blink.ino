@@ -1,6 +1,7 @@
 //Blink - turns on LED on Arduino, modified from Arduino's Blink.ino
 //Changed by Miles Young
-#define LED 13
+#define LED 13            //for Arduino
+//#define LED LED_BUILTIN //for ESP8266
 #define DELAY 5000
 
 // the setup routine runs once when you press reset:
