@@ -1,6 +1,8 @@
+SHELL			:= /bin/bash
 ARDUINO_DIR 	:= $(HOME)/Documents/ArduinoIDE
 ARDUINO_SKETCHBOOK	:= $(HOME)/Documents/Arduino
-ARDUINO_PORT 	:= /dev/ttyUSB0
+#ARDUINO_PORT 	:= /dev/ttyUSB0
+ARDUINO_PORT 	:= $(shell ls /dev/ttyUSB* | head -n 1)
 MONITOR_PORT	:= $(ARDUINO_PORT)
 #Board info: https://github.com/sudar/Arduino-Makefile/blob/master/examples/Blink/Makefile
 ARCHITECTURE	:= avr
@@ -20,8 +22,10 @@ gui: openGUI
 openGUI:
 	$(ARDUINO_DIR)/arduino $(SRC)
 
+COMM_PREF		:= sm.conf
 comm:
-	stty -F $(ARDUINO_PORT) cs8 9600 ignbrk -brkint -imaxbel -opost -onlcr -isig -icanon -iexten -echo -echoe -echok -echoctl -echoke noflsh -ixon -crtscts
+	sed -i 's,device='.*',device='"$(ARDUINO_PORT)"',g' $(COMM_PREF)
+	moserial --profile=$(COMM_PREF)
 
 clear:
 	rm -r build-$(BOARD_TAG)-$(BOARD_SUB)
