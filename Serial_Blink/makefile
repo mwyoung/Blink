@@ -14,7 +14,7 @@ include /usr/share/arduino/Arduino.mk
 ifneq ($(wildcard *.ino).ino,)
 ARDUINO_INO_FILE = $(wildcard *.ino)
 else
-ARDUINO_INO_FILE = Weather.ino
+ARDUINO_INO_FILE = test.ino
 endif
 SRC = $(ARDUINO_INO_FILE)
 
